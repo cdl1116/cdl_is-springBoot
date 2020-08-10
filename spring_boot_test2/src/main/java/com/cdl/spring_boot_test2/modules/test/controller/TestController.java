@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+//重新提交
 @Controller
 @RequestMapping("/test")
 public class TestController {
@@ -60,6 +60,7 @@ public class TestController {
                 .append(applicationTest.getDesc()).append("-----")
                 .append(applicationTest.getRandom()).append("-----").append("<br>");
         return sb.toString();
+
     }
 
 
