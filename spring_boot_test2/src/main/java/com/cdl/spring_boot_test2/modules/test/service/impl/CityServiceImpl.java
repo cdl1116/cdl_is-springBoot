@@ -1,5 +1,6 @@
 package com.cdl.spring_boot_test2.modules.test.service.impl;
 
+import com.cdl.spring_boot_test2.aspect.ServiceAnnotation;
 import com.cdl.spring_boot_test2.modules.common.vo.Result;
 import com.cdl.spring_boot_test2.modules.common.vo.SearchVo;
 import com.cdl.spring_boot_test2.modules.test.dao.CityDao;
@@ -23,6 +24,7 @@ public class CityServiceImpl implements CityService {
     private CityDao cityDao;
 
     @Override
+    @ServiceAnnotation(value = "bbb")
     public List<City> getCitiesByCountryId(int countryId) {
         return Optional.
                 ofNullable(cityDao.getCitiesByCountryId(countryId))
@@ -61,7 +63,7 @@ public class CityServiceImpl implements CityService {
     @Transactional(noRollbackFor = ArithmeticException.class)
     public Result<City> updateCity(City city) {
         cityDao.updateCity(city);
-        int i=1/0;
+        //int i=1/0;
         return new Result<City>(Result.ResultStatus.SUCCESS.status,
                 "updateCity success",city);
     }
