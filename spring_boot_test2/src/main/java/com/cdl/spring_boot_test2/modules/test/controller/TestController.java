@@ -56,6 +56,15 @@ public class TestController {
     private CountryService countryService;
 
     /**
+     * 127.0.0.1/test/indexSimple ---- get
+     */
+    @GetMapping("/indexSimple")
+    public String indexSimpleTestPage() {
+        return "indexSimple";
+    }
+
+
+    /**
      * 将文件以BufferedInputStream的方式读取到byte[]里面，然后用OutputStream.write输出文件
      */
     @RequestMapping("/download1")
@@ -137,6 +146,7 @@ public class TestController {
             resource = new UrlResource(
                     Paths.get("E:\\upload\\" + fileName).toUri());
             if (resource.exists() && resource.isReadable()) {
+                String aa = new String(fileName.getBytes("utf-8"), "ISO-8859-1");
                 return ResponseEntity
                         .ok()
                         .header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")
@@ -144,7 +154,7 @@ public class TestController {
                                 String.format("attachment; filename=\"%s\"", resource.getFilename()))
                         .body(resource);
             }
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
