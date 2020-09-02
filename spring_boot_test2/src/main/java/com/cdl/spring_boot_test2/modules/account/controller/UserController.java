@@ -5,9 +5,11 @@ import com.cdl.spring_boot_test2.modules.account.service.UserService;
 import com.cdl.spring_boot_test2.modules.common.vo.Result;
 import com.cdl.spring_boot_test2.modules.common.vo.SearchVo;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
@@ -57,6 +59,7 @@ public class UserController {
      * 127.0.0.1/api/user/1 -----delete
      */
     @DeleteMapping("/user/{userId}")
+    @RequiresPermissions(value = "/api/user")
     public Result<Object> deleteUser(@PathVariable int userId){
         return userService.deleteUser(userId);
     }
@@ -69,4 +72,19 @@ public class UserController {
         return userService.getUserByUserId(userId);
     }
 
+    /**
+     * 127.0.0.1/api/userImg ---- post
+     */
+    @PostMapping(value = "/userImg", consumes = "multipart/form-data")
+    public Result<String> uploadFile(@RequestParam MultipartFile file) {
+        return userService.uploadUserImg(file);
+    }
+
+    /**
+     * 127.0.0.1/api/profile ---- put
+     */
+    @PutMapping(value = "/profile", consumes = "application/json")
+    public Result<User> updateUserProfile(@RequestBody User user) {
+        return userService.updateUserProfile(user);
+    }
 }

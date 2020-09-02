@@ -8,6 +8,7 @@ import com.cdl.springcloud.springCloudClientTest.modules.test.service.CityServic
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,9 @@ import java.util.Optional;
 
 @Service
 public class CityServiceImpl implements CityService {
+
+    @Value("${server.port}")
+    private int port;
 
     @Autowired
     private CityDao cityDao;
